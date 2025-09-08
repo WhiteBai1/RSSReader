@@ -1,28 +1,36 @@
-import readline from 'readline'
-import {config} from 'dotenv'
-import { Configuration,OpenAIApi} from 'openai'
+import OpenAI from 'openai';
+import readline from 'readline';
+import dotenv from 'dotenv';
 
-config()
 
-const client = new OpenAIapi(new Configuration({
-    apikey:process.env.OpenAI_AI_KEY
-}));
+dotenv.config()
 
-const completion = await client.chat.completions.create({
-    model:"gpt-4o",
-    messages:[{
-        role:'user',
-        content:input,
-    }],
-})
+const client = new OpenAI({
+    apiKey:process.env.OPENAI_API_KEY
+});
 
 const shell = readline.createInterface({
     input :process.stdin,
     output:process.stdout,
 })
 
-shell.prompt()
+async function chatwithclient(input){
+    try{
+        const res = await client.chat.completions.create({
+        model: "gpt-4o",
+        messages: [{ role: "user", content: input }],
+    });
+     return res.choices[0].message.content;
+    }catch(error){
+        console.error("error",error);
+        return;
+    }
+}
+
+
+
+shell.prompt(':')
 shell.on('line',async(input)=>{
-    console.log(await completion(input))
-    shell.prompt()
+    console.log(await chatwithclient(input))
+    shell.prompt(':')
 })
