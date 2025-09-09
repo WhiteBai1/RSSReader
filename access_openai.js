@@ -6,7 +6,8 @@ import dotenv from 'dotenv';
 dotenv.config()
 
 const client = new OpenAI({
-    apiKey:process.env.OPENAI_API_KEY
+    baseURL: 'https://api.deepseek.com',
+    apiKey:process.env.OPENAI_API_KEY,
 });
 
 const shell = readline.createInterface({
@@ -17,7 +18,7 @@ const shell = readline.createInterface({
 async function chatwithclient(input){
     try{
         const res = await client.chat.completions.create({
-        model: "gpt-4o",
+        model: "deepseek-chat",
         messages: [{ role: "user", content: input }],
     });
      return res.choices[0].message.content;
