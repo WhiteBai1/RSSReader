@@ -13,7 +13,7 @@ async function fetchRssFeed(url:string): Promise<string> {
 }
 
 //test
-const test= 'https://feeds.bbci.co.uk/news/rss.xml'
+//const test= 'https://feeds.bbci.co.uk/news/rss.xml'
 //const xmldata=await fetchRssFeed(test); 
 
 interface feedItem{
@@ -67,4 +67,4 @@ async function articleRSSDate(url:string):Promise<void>{
 }
 
 //test
-articleRSSDate(test);
+//articleRSSDate(test);
